@@ -1,5 +1,6 @@
 package node;
 
+import kafka.Producer;
 import query.Query;
 
 import java.util.ArrayList;
@@ -83,6 +84,20 @@ public class HashResult {
             list.add(resultNode);
             this.hashResult.put(query, list);
         }
+        System.out.println("Query: ["+query.getQueryTerms() +" ("+query.getQueryNumber()+")]\t" + "Result label: "+ resultNode.getLabel());
+        //Producer.produce(getNameTopic(query.getUserID()),"Result("+query.getQueryNumber()+")"+resultNode.getLabel());
+        try{
+            Producer.produce(getNameTopic(query.getQueryTerms()),"Query: ["+query.getQueryTerms() +" ("+query.getQueryNumber()+")]\t" + "Result label: "+ resultNode.getLabel());
+
+        }catch (Exception e){
+            System.out.println("Erro topico:" + getNameTopic(query.getQueryTerms()));
+        }
+    }
+
+    public String getNameTopic(String queryTerms){
+        return queryTerms.replaceFirst("::","")
+                .replace("::","-")
+                .replaceAll("\\s+","");
     }
 
     /**
