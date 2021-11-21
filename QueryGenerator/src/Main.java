@@ -38,15 +38,30 @@ public class Main  extends DefaultHandler{
         //2 - n tokens
         //3 - query file name
         //4 - base name(directory name)
-        for(int i = 0; i < 4 ; i++)
-        gen.run(50000, i, 5, "test", "icde");
+
+        String nomeBase = "sigmod";
+
+        //a) Keyword só no conteúdo: 1 a 4 termos, sem labels, só keyword (::k)
+        for(int i = 1; i <= 4 ; i++)
+            gen.run(12500, 0, i, "1_tcc2", nomeBase);
+
+        //b) Keyword no conteúdo e no label: 5 termos, variando de 0 label a 3 lables ( 5 variações) (l::k)
+
+        gen.run(50000, 0, 5, "2_tcc2", nomeBase);
+        gen.run(50000, 1, 5, "3_tcc2", nomeBase);
+        gen.run(50000, 2, 5, "4_tcc2", nomeBase);
+        gen.run(50000, 3, 5, "5_tcc2", nomeBase);
+        //for(int i = 0; i <= 3 ; i++)
+        //   gen.run(50000, i, 5, "2_tcc2", "isfdb");
+
+        //c) Key só no conteúdo, com keword de 2, 4 e 6.
+        gen.run(50000, 0, 2, "6_tcc2", nomeBase);
+        gen.run(50000, 0, 4, "7_tcc2", nomeBase);
+        gen.run(50000, 0, 6, "8_tcc2", nomeBase);
+        //for(int i = 2; i <= 6 ; i=i+2)
+        //gen.run(50000, 0, i, "tcc2", "icde");
     }
     
     
     
 }
-
-
-//                while((line = streamFile.readLine()) != null){
-//                    tokens.addAll(Arrays.asList(line.split("(?<=>)([^<>]+?)(?=<)")));
-//                }
