@@ -25,18 +25,6 @@ phases:
       - echo Entered the post_build phase...
       - echo Build completed on `date`
 
-reports:
-  arn:aws:codebuild:sa-east-1:289524925696:report-group/report-group-name-1:
-    files:
-      - "**/*"
-    base-directory: 'target/tests/reports'
-    discard-paths: no
-  reportGroupCucumberJson:
-    files:
-      - 'cucumber/target/cucumber-tests.xml'
-    discard-paths: yes
-    file-format: CUCUMBERJSON # default is JUNITXML
-
 artifacts:
   files:
     - target/messageUtil-1.0.jar
