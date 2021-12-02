@@ -40,7 +40,7 @@ public class RunMKStream {
         args[0] = "isfdb";
         args[1] = "50000";
         args[2] = "1"; //stacks
-        args[3] = "6"; //experimento
+        args[3] = "9"; //experimento
 
         lArgs[0] = defaultDir+"xml/datasets/"+args[0].toLowerCase()+"/";
         if(args[3].equals("1"))
@@ -59,6 +59,8 @@ public class RunMKStream {
                 lArgs[1] = args[0].toLowerCase()+"_test_0l4t_50000.txt";
         else if(args[3].equals("8"))
                 lArgs[1] = args[0].toLowerCase()+"_test_0l6t_50000.txt";
+        else if(args[3].equals("9"))
+            lArgs[1] = args[0].toLowerCase()+"_tcc2_1l2t_50000_teste_novo_formato.txt";
 
         for(int i=0; i < 3 ; i++) {
             registerState("Initiate", lArgs[1], defaultDir);
@@ -76,6 +78,7 @@ public class RunMKStream {
                 System.out.println(args[0]+";\t"+args[1]+";\t"+args[2]+";\t"+args[3]+";\t"+j+";\t");
 
                 try {
+
                     QueryProcessor.run((lArgs));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
