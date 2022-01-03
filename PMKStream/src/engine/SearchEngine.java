@@ -1,14 +1,13 @@
 package engine;
 
+import kafka.Producer;
 import node.HashResult;
 import node.LCAStackNode;
 import node.NodePath;
 import node.ResultNode;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
 import parallelize.ParallelTasks;
 import query.Query;
 import query.QueryGroup;
@@ -63,6 +62,8 @@ public class SearchEngine extends DefaultHandler {
 
     private boolean ELCASemantics;
     private String pushingType;
+
+    private Producer producer = new Producer();
 
     /**
      * Constructor
@@ -238,6 +239,8 @@ public class SearchEngine extends DefaultHandler {
                     }
 
                     if (result != null) {
+                        //System.out.println("Query: ["+query.getQueryTerms() +" ("+query.getQueryNumber()+")]\t" + "Result label: "+ result.getLabel());
+                        insertResultsInTopic(query,result);
                         if (this.trackMemory) {
                                 query.getResultList().add(result);
                                 this.hashResult.putResultNode(query, result);
@@ -262,6 +265,16 @@ public class SearchEngine extends DefaultHandler {
         time = System.currentTimeMillis() - time;
         this.endTime += time;
         
+    }
+
+    private void insertResultsInTopic(Query query, ResultNode resultNode){
+        try{
+            producer.produce("OUTPUT_QUERIES_RESULTS_ISFDB",
+                    "Result(Query_number:"+query.getQueryNumber()+"\tQuery_terms:"+ query.getQueryTerms()+")=\t"
+                            +resultNode.getLabel());
+        }catch (Exception e){
+            System.out.println("Erro topico:" + query.getQueryTerms());
+        }
     }
 
     /**
