@@ -631,7 +631,7 @@ public class QueryProcessor {
             long sumUsedMemory = memory_tracker.getMemoryUsageInKB("sumusedmemory");
         }
 
-        writeTimeForSearch();
+        writeTimeForSearch(args[0]);
 
     }
 
@@ -661,10 +661,10 @@ public class QueryProcessor {
         return XMLFileList;
     }
 
-    public static void writeTimeForSearch() {
+    public static void writeTimeForSearch(String xmlFileSearch) {
         try {
             BufferedWriter wr = new BufferedWriter(new FileWriter(absPath + "results/time_" + query_file, true));
-            String q = numberOfQueries + ";" + nThreads + ";" + media;
+            String q = numberOfQueries + ";" + nThreads + ";" + media +";" + xmlFileSearch;
             wr.write(q, 0, q.length());
             wr.newLine();
             wr.close();
