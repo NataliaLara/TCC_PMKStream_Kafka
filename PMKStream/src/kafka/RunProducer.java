@@ -2,7 +2,6 @@ package kafka;
 
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.UUID;
 
 // Handle starting producer or consumer
 public class RunProducer {
@@ -13,7 +12,7 @@ public class RunProducer {
         }*/
         // Get the brokers
         String brokers = "localhost:9092";
-        String topicName = "INPUT_XML_FILES";
+        String topicName = "INPUT_XML_FILES_ISFDB";
         //topicXMLFilesPath
         //topicKeywords
         //topicResults
